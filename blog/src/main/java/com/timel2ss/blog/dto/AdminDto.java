@@ -13,5 +13,10 @@ public class AdminDto {
         private final String password;
     }
 
-    //public static class
+    @Getter
+    @RequiredArgsConstructor
+    public static class Response {
+        private final long id;
+        private final String name;
+    }
 }

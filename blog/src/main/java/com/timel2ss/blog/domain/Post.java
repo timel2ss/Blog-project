@@ -4,6 +4,7 @@ import com.timel2ss.blog.exception.WrongPasswordException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+@ToString
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,11 +41,11 @@ public class Post extends BaseTimeEntity{
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private List<File> files = new ArrayList<>();
+//    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+//    private List<File> files = new ArrayList<>();
 
     // 생성 메서드
-    public static Post createPost(Admin admin, PostBoard postBoard, String title, String description, String content, NoticeStatus noticeStatus, List<File> files) {
+    public static Post createPost(Admin admin, PostBoard postBoard, String title, String description, String content, NoticeStatus noticeStatus) {
         Post post = new Post();
         post.admin = admin;
         post.postBoard = postBoard;
@@ -51,22 +53,25 @@ public class Post extends BaseTimeEntity{
         post.description = description;
         post.content = content;
         post.noticeStatus = noticeStatus;
-        post.files.addAll(files);
         return post;
     }
 
     // 내용 수정
-    public void modify(String password, String title, String description, String content, NoticeStatus noticeStatus, File... files) {
+    public void modify(String title, String description, String content, NoticeStatus noticeStatus) {
         this.title = title;
         this.description = description;
         this.content = content;
         this.noticeStatus = noticeStatus;
-        Arrays.stream(files).filter(Objects::nonNull).forEach(file -> this.files.add(file));
     }
 
     // 첨부 파일 삭제
-    public void deleteFile(long fileId) {
-        files.stream().filter(file -> file.getId() == fileId).forEach(File::delete);
+//    public void deleteFile(long fileId) {
+//        files.stream().filter(file -> file.getId() == fileId).forEach(File::delete);
+//    }
+
+    // 댓글 등록
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
     }
 
     // 댓글 삭제

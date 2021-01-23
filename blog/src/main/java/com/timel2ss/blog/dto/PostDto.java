@@ -1,25 +1,35 @@
 package com.timel2ss.blog.dto;
 
-import com.timel2ss.blog.domain.File;
 import com.timel2ss.blog.domain.NoticeStatus;
 import com.timel2ss.blog.domain.PostBoard;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 
 public class PostDto {
 
     @Getter
-    @RequiredArgsConstructor
+    @NoArgsConstructor
     public static class Create {
+        private long id;
+        private long adminId;
+        private long postBoardId;
+        private String title;
+        private String description;
+        private String content;
+        private NoticeStatus noticeStatus;
+    }
+
+    @Getter
+    @RequiredArgsConstructor
+    public static class Response {
+        private final long id;
+        private final long postBoardId;
         private final String title;
         private final String description;
         private final String content;
-        private final NoticeStatus noticeStatus;
-        private final AdminDto adminDto;
-        private PostBoard postBoard;
-        private List<File> files = new ArrayList<>();
+        private final LocalDateTime createTime;
     }
 }

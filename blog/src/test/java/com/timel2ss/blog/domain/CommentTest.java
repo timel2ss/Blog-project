@@ -107,6 +107,4 @@ class CommentTest {
         // then
         assertThrows(WrongPasswordException.class, () -> comment.delete(wrongPW));
     }
-
-
 }

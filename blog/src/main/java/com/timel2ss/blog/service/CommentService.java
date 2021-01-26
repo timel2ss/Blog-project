@@ -24,7 +24,8 @@ public class CommentService {
     public long createComment(CommentDto.Create create, String IP) {
         Post post = postRepository.findOne(create.getPostId());
         Comment comment = Comment.createComment(post, create.getNickname(), create.getPassword(), IP, create.getContent());
-        commentRepository.save(comment);
+//        commentRepository.save(comment);
+        post.addComment(comment);
         return comment.getId();
     }
 

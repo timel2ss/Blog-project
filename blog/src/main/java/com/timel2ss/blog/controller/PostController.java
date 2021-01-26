@@ -1,9 +1,11 @@
 package com.timel2ss.blog.controller;
 
+import com.timel2ss.blog.domain.Post;
 import com.timel2ss.blog.dto.AdminDto;
 import com.timel2ss.blog.dto.CommentDto;
 import com.timel2ss.blog.dto.PostBoardDto;
 import com.timel2ss.blog.dto.PostDto;
+import com.timel2ss.blog.repository.PostRepository;
 import com.timel2ss.blog.service.AdminService;
 import com.timel2ss.blog.service.CommentService;
 import com.timel2ss.blog.service.PostBoardService;
@@ -33,7 +35,11 @@ public class PostController {
     public String postList(@PathVariable(name = "id") long id,
                            @RequestParam(name = "start") int start,
                            Model model) {
+        PostBoardDto.Response postBoard = postBoardService.getPostBoard(id);
+        List<PostBoardDto.Response> categories = postBoardService.getCategories();
         List<PostDto.Response> posts = postService.getPosts(id, start);
+        model.addAttribute(postBoard);
+        model.addAttribute(categories);
         model.addAttribute(posts);
         return "postBoard";
     }

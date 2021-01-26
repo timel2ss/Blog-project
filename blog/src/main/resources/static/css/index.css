@@ -1,0 +1,17 @@
+.recent-title {
+    padding-left: 20px;
+    padding-bottom: 10px;
+}
+
+.category-list {
+    border-left-color: #0a0a0a;
+    padding-left: 20px;
+}
+
+.category {
+    padding-bottom: 10px;
+}
+
+.category-font {
+    font-size: 20px;
+}

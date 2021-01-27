@@ -78,3 +78,7 @@
     transition: all 0.2s linear;
 }
 
+.paging {
+    padding-left: 100px;
+    padding-top: 10px;
+}

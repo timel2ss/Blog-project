@@ -1,102 +1,72 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title th:text="Title">Title</title>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/foundation.css">
-    <link rel="stylesheet" href="css/postView.css">
-    <link rel="stylesheet" href="css/topBar.css">
-    <link rel="stylesheet" href="css/paging.css">
-    <link rel="stylesheet" href="css/layout.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="webjars/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/paging.css" rel="stylesheet">
+    <title>test</title>
 </head>
 <body>
-<nav class="top-bar topbar-responsive">
-    <div class="top-bar-title">
-    <span data-responsive-toggle="topbar-responsive" data-hide-for="medium">
-      <button class="menu-icon" type="button" data-toggle></button>
-    </span>
-        <a class="topbar-responsive-logo" href="#"><strong>Site Title</strong></a>
-    </div>
-    <div id="topbar-responsive" class="topbar-responsive-links">
-        <div class="top-bar-right">
-            <ul class="menu simple vertical medium-horizontal">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Works</a></li>
-                <li><a href="#">News</a></li>
-                <li><a href="#">Contact</a></li>
-                <li>
-                    <button type="button" class="button hollow topbar-responsive-button">Categories</button>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div th:replace="/fragments/navbar.html :: navbar(current='1')"></div>
 
-<div class="holy-grail-grid">
-    <div class="holy-grail-left">
-        <h3>Nav</h3>
-        <ul>
-            <li><a href="#">Link 1</a></li>
-            <li><a href="#">Link 2</a></li>
-            <li><a href="#">Link 3</a></li>
-        </ul>
-    </div>
-
-
-    <div class="simple-article-header">
-        <form th:object="${form}" method="post">
-            <input type="hidden" th:field="*{id}" />
-
-            <div>
-                <label th:for="name"></label>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9" style="padding-left: 30px">
+            <div style="padding-bottom: 10px;">
+                <h2>글 작성하기</h2>
             </div>
-        </form>
-    </div>
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label for="exampleFormControlInput1">Post Title</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Title">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleFormControlSelect1">Example select</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Example description</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea2">Example content</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea2" rows="10"></textarea>
+                </div>
 
-    <div class="holy-grail-right">
-        <div class="medium-3 columns" data-sticky-container>
-            <div class="sticky" data-sticky data-anchor="content">
-                <h4>Categories</h4>
-                <ul>
-                    <li><a href="#">Skyler</a></li>
-                    <li><a href="#">Jesse</a></li>
-                    <li><a href="#">Mike</a></li>
-                    <li><a href="#">Holly</a></li>
-                </ul>
-
-                <h4>Authors</h4>
-                <ul>
-                    <li><a href="#">Skyler</a></li>
-                    <li><a href="#">Jesse</a></li>
-                    <li><a href="#">Mike</a></li>
-                    <li><a href="#">Holly</a></li>
-                </ul>
-            </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                            <label class="custom-control-label" for="customCheck1">Notice</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <button type="submit" class="btn btn-outline-danger btn-lg float-right button-size" style="margin-left: 10px;">CANCEL</button>
+                        <button type="submit" class="btn btn-outline-primary btn-lg float-right button-size">POST</button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </div>
 
-    <div class="holy-grail-footer">
-        <ul class="pagination-pointed pagination text-center" role="navigation" aria-label="Pagination">
-            <li class="pagination-previous disabled">Previous <span class="show-for-sr">page</span></li>
-            <li class="current"><span class="show-for-sr">You're on page</span> 1</li>
-            <li><a class="pagination-pointed-button" href="#" aria-label="Page 2">2</a></li>
-            <li><a class="pagination-pointed-button" href="#" aria-label="Page 3">3</a></li>
-            <li><a class="pagination-pointed-button" href="#" aria-label="Page 4">4</a></li>
-            <li class="ellipsis" aria-hidden="true"></li>
-            <li><a class="pagination-pointed-button" href="#" aria-label="Page 12">12</a></li>
-            <li><a class="pagination-pointed-button" href="#" aria-label="Page 13">13</a></li>
-            <li class="pagination-next"><a class="pagination-pointed-button" href="#" aria-label="Next page">Next <span class="show-for-sr">page</span></a></li>
-        </ul>
-    </div>
+        <div th:replace="/fragments/category.html :: category"></div>
 
+    </div>
 </div>
 
-<script src="js/vendor.js"></script>
-<script src="js/foundation.js"></script>
+
+<script src="webjars/jquery/3.5.1/jquery.min.js"></script>
+<script src="webjars/popper.js/2.5.4/umd/popper.min.js"></script>
+<script src="webjars/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
 </body>
 </html>

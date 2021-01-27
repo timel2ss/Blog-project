@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="webjars/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
   <link href="css/index.css" rel="stylesheet">
+  <link href="css/paging.css" rel="stylesheet">
   <title>test</title>
 </head>
 <body>
@@ -17,8 +18,8 @@
             <h2>최신 글 목록</h2>
           </div>
           <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-primary">World</strong>
+            <div class="col p-4 d-flex flex-column position-static" th:each="post : ${posts}">
+              <strong class="d-inline-block mb-2 text-primary" th:text="">World</strong>
               <h3 class="mb-0">Featured post</h3>
               <div class="mb-1 text-muted">Nov 12</div>
               <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
@@ -64,22 +65,12 @@
               <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
             </div>
           </div>
+
+          <div th:replace="/fragments/pagination.html :: pagination"></div>
         </div>
 
         <div th:replace="/fragments/category.html :: category"></div>
-        <div class="row">
-          <ul class="pagination-pointed pagination text-center" role="navigation" aria-label="Pagination">
-            <li class="pagination-previous disabled">Previous <span class="show-for-sr">page</span></li>
-            <li class="current"><span class="show-for-sr">You're on page</span> 1</li>
-            <li><a class="pagination-pointed-button" href="#" aria-label="Page 2">2</a></li>
-            <li><a class="pagination-pointed-button" href="#" aria-label="Page 3">3</a></li>
-            <li><a class="pagination-pointed-button" href="#" aria-label="Page 4">4</a></li>
-            <li class="ellipsis" aria-hidden="true"></li>
-            <li><a class="pagination-pointed-button" href="#" aria-label="Page 12">12</a></li>
-            <li><a class="pagination-pointed-button" href="#" aria-label="Page 13">13</a></li>
-            <li class="pagination-next"><a class="pagination-pointed-button" href="#" aria-label="Next page">Next <span class="show-for-sr">page</span></a></li>
-          </ul>
-        </div>
+
       </div>
     </div>
 

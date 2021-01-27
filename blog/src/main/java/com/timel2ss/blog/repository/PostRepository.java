@@ -25,7 +25,14 @@ public class PostRepository {
         return em.createQuery("select p from Post p, PostBoard b where p.postBoard.id = b.id and b.id = :board_id", Post.class)
                 .setParameter("board_id", boardId)
                 .setFirstResult(start)
-                .setMaxResults(10)
+                .setMaxResults(5)
+                .getResultList();
+    }
+
+    public List<Post> findAllOrderByDesc(int start) {
+        return em.createQuery("select p from Post p order by p.id desc", Post.class)
+                .setFirstResult(start)
+                .setMaxResults(5)
                 .getResultList();
     }
 

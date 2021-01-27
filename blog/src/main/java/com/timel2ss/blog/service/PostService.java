@@ -46,4 +46,15 @@ public class PostService {
         }
         return result;
     }
+
+    public List<PostDto.Response> getRecentPosts(int start) {
+        List<Post> list = postRepository.findAllOrderByDesc(start);
+        List<PostDto.Response> result = new LinkedList<>();
+
+        for (Post post : list) {
+            PostDto.Response response = new PostDto.Response(post.getId(), post.getPostBoard().getId(), post.getTitle(), post.getDescription(), post.getContent(), post.getCreateDate());
+            result.add(response);
+        }
+        return result;
+    }
 }

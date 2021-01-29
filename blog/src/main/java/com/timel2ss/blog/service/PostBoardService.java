@@ -26,7 +26,8 @@ public class PostBoardService {
 
     public PostBoardDto.Response getPostBoard(long id) {
         PostBoard postBoard = postBoardRepository.findOne(id);
-        return new PostBoardDto.Response(postBoard.getId(), postBoard.getName(), postBoard.getDescription());
+        long count = postBoardRepository.countPostsById(id);
+        return new PostBoardDto.Response(postBoard.getId(), postBoard.getName(), postBoard.getDescription(), count);
     }
 
     public List<PostBoardDto.Response> getCategories() {
@@ -34,9 +35,14 @@ public class PostBoardService {
         List<PostBoardDto.Response> result = new ArrayList<>();
 
         for (PostBoard board : boards) {
-            PostBoardDto.Response response = new PostBoardDto.Response(board.getId(), board.getName(), board.getDescription());
+            long count = postBoardRepository.countPostsById(board.getId());
+            PostBoardDto.Response response = new PostBoardDto.Response(board.getId(), board.getName(), board.getDescription(), count);
             result.add(response);
         }
         return result;
+    }
+
+    public long countAll() {
+        return postBoardRepository.countAll();
     }
 }

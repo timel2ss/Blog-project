@@ -1,19 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.thymeleaf.org">
-    <div th:fragment="category">
+    <div th:fragment="category(categories)">
         <div class="col-md-auto">
             <div class="category-list">
                 <div class="category">
                     <h3>게시판 목록</h3>
                 </div>
-                <div class="category">
-                    <a class="category-font" href="#">adfsdf</a>
-                </div>
-                <div class="category">
-                    <a class="category-font" href="#">adfsdf</a>
-                </div>
-                <div class="category">
-                    <a class="category-font" href="#">adfsdf</a>
+                <div class="category" th:each="category : ${categories}">
+                    <a class="category-font" href="#" th:href="@{'/board/' + ${category.getId()}}" th:text="${category.getName()} + ' (' + ${category.getCount()} + ')'">postBoard</a>
                 </div>
             </div>
         </div>

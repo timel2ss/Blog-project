@@ -1,13 +1,9 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="webjars/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/index.css" rel="stylesheet">
-    <link href="css/paging.css" rel="stylesheet">
-    <link href="css/postView.css" rel="stylesheet">
-    <title>test</title>
+    <div th:replace="/fragments/header.html :: header"></div>
+    <link href="#" th:href="@{/css/postView.css}" rel="stylesheet">
+    <title th:text="${post.getTitle()}">view</title>
 </head>
 <body>
 <div th:replace="/fragments/navbar.html :: navbar(current='1')"></div>
@@ -17,33 +13,31 @@
         <div class="col-md-9" style="padding-left: 30px">
             <div class="simple-article-header">
                 <!-- Article Published Date & Reading Time -->
-                <p class="article-date-read">Published on: 21 April, 2017 - 3 min read</p>
+                <p class="article-date-read" th:text="'Published on: ' + ${post.getCreateTime()}">Published on: 21 April, 2017 - 3 min read</p>
 
                 <!-- Article Title -->
-                <h4 class="article-title">
-                    <a href="#">
+                <h4 class="article-title" th:text="${post.getTitle()}">
                         20 Best PHP Blogs You Must Follow
-                    </a>
                 </h4>
 
                 <!-- Article Author Name & Comment Hyperlink -->
                 <p class="article-author-comments">
-                    <em>by <a href="#">Harry Manchanda</a></em> -
+                    <em th:text="'by ' + ${post.getAdminName()}">by <a href="#">Harry Manchanda</a></em> -
                     <a class="article-comments" href="#">3 Comments</a>
                 </p>
 
                 <!-- Article Social Links -->
                 <div class="article-social">
-                    <a href="#" class="button social facebook">
+                    <a href="#" class="btn social facebook">
                         <i class="fa fa-facebook fa-lg" aria-hidden="true"></i>
                     </a>
-                    <a href="#" class="button social twitter">
+                    <a href="#" class="btn social twitter">
                         <i class="fa fa-twitter fa-lg" aria-hidden="true"></i>
                     </a>
-                    <a href="#" class="button social linkedin">
+                    <a href="#" class="btn social linkedin">
                         <i class="fa fa-linkedin fa-lg" aria-hidden="true"></i>
                     </a>
-                    <a href="#" class="button social google-plus">
+                    <a href="#" class="btn social google-plus">
                         <i class="fa fa-google-plus fa-lg" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -57,9 +51,7 @@
 
                 <!-- Article Post Content -->
                 <div class="article-post-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, quod, mollitia! Ex sed magni veritatis pariatur facere hic necessitatibus aperiam. Necessitatibus doloribus molestias velit sequi expedita laudantium odio sunt nam ratione quibusdam animi consequatur vero quam eligendi veritatis voluptatum excepturi similique perferendis, suscipit facilis itaque, cum totam quasi. Corporis quis beatae neque tenetur, ullam quisquam itaque reprehenderit amet, provident praesentium ab velit laudantium debitis enim dignissimos iure magnam voluptatum! Reiciendis aut adipisci accusantium harum ratione quaerat maxime, cum non provident dolores. Unde id quod aliquam esse officia tenetur assumenda veniam deserunt consequuntur doloremque ducimus perferendis accusamus in dolorem animi magni, quisquam fugiat quasi quaerat voluptate repellendus molestiae excepturi blanditiis. Rerum excepturi quas expedita vel, ducimus neque assumenda, necessitatibus! Eos est quas dolore fuga odio, soluta nulla totam tempora minima quis itaque sapiente ducimus veniam enim repellendus. Soluta earum consectetur voluptatum, quasi aperiam doloribus neque blanditiis, amet, odit vero, sit omnis.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, quod, mollitia! Ex sed magni veritatis pariatur facere hic necessitatibus aperiam. Necessitatibus doloribus molestias velit sequi expedita laudantium odio sunt nam ratione quibusdam animi consequatur vero quam eligendi veritatis voluptatum excepturi similique perferendis, suscipit facilis itaque, cum totam quasi. Corporis quis beatae neque tenetur, ullam quisquam itaque reprehenderit amet, provident praesentium ab velit laudantium debitis enim dignissimos iure magnam voluptatum! Reiciendis aut adipisci accusantium harum ratione quaerat maxime, cum non provident dolores. Unde id quod aliquam esse officia tenetur assumenda veniam deserunt consequuntur doloremque ducimus perferendis accusamus in dolorem animi magni, quisquam fugiat quasi quaerat voluptate repellendus molestiae excepturi blanditiis. Rerum excepturi quas expedita vel, ducimus neque assumenda, necessitatibus! Eos est quas dolore fuga odio, soluta nulla totam tempora minima quis itaque sapiente ducimus veniam enim repellendus. Soluta earum consectetur voluptatum, quasi aperiam doloribus neque blanditiis, amet, odit vero, sit omnis.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, quod, mollitia! Ex sed magni veritatis pariatur facere hic necessitatibus aperiam. Necessitatibus doloribus molestias velit sequi expedita laudantium odio sunt nam ratione quibusdam animi consequatur vero quam eligendi veritatis voluptatum excepturi similique perferendis, suscipit facilis itaque, cum totam quasi. Corporis quis beatae neque tenetur, ullam quisquam itaque reprehenderit amet, provident praesentium ab velit laudantium debitis enim dignissimos iure magnam voluptatum! Reiciendis aut adipisci accusantium harum ratione quaerat maxime, cum non provident dolores. Unde id quod aliquam esse officia tenetur assumenda veniam deserunt consequuntur doloremque ducimus perferendis accusamus in dolorem animi magni, quisquam fugiat quasi quaerat voluptate repellendus molestiae excepturi blanditiis. Rerum excepturi quas expedita vel, ducimus neque assumenda, necessitatibus! Eos est quas dolore fuga odio, soluta nulla totam tempora minima quis itaque sapiente ducimus veniam enim repellendus. Soluta earum consectetur voluptatum, quasi aperiam doloribus neque blanditiis, amet, odit vero, sit omnis.</p>
+                    <p th:text="${post.getContent()}">content</p>
                 </div>
             </div>
 
@@ -68,14 +60,11 @@
 <!--            TODO comment, next post, prev post, 목록 이동 -->
         </div>
 
-        <div th:replace="/fragments/category.html :: category"></div>
+        <div th:replace="/fragments/category.html :: category(${categories})"></div>
 
     </div>
 </div>
 
-
-<script src="webjars/jquery/3.5.1/jquery.min.js"></script>
-<script src="webjars/popper.js/2.5.4/umd/popper.min.js"></script>
 <script src="webjars/bootstrap/4.6.0/js/bootstrap.min.js"></script>
 
 </body>

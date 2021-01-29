@@ -26,7 +26,8 @@ public class PostDto {
     @RequiredArgsConstructor
     public static class Response {
         private final long id;
-        private final long postBoardId;
+        private final String adminName;
+        private final String postBoardName;
         private final String title;
         private final String description;
         private final String content;

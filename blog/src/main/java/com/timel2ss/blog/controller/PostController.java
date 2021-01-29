@@ -27,26 +27,31 @@ public class PostController {
     private final PostBoardService postBoardService;
 
     @GetMapping("/")
-    public String home(@RequestParam(name = "start", required = false, defaultValue = "0") int start,
+    public String home(@RequestParam(name = "page", required = false, defaultValue = "0") int page,
                        Model model) {
         List<PostBoardDto.Response> categories = postBoardService.getCategories();
-        List<PostDto.Response> recentPosts = postService.getRecentPosts(start);
+        List<PostDto.Response> recentPosts = postService.getRecentPosts(page);
+        long count = postBoardService.countAll();
 
         model.addAttribute("categories", categories);
         model.addAttribute("posts", recentPosts);
+        model.addAttribute("count", count);
+        model.addAttribute("current", page);
         return "index";
     }
 
     @GetMapping("/board/{id}")
-    public String postList(@PathVariable(name = "id") long id,
-                           @RequestParam(name = "start") int start,
+    public String postBoard(@PathVariable(name = "id") long id,
+                           @RequestParam(name = "page", required = false, defaultValue = "0") int page,
                            Model model) {
-//        PostBoardDto.Response postBoard = postBoardService.getPostBoard(id);
-//        List<PostBoardDto.Response> categories = postBoardService.getCategories();
-//        List<PostDto.Response> posts = postService.getPosts(id, start);
-//        model.addAttribute(postBoard);
-//        model.addAttribute(categories);
-//        model.addAttribute(posts);
+        PostBoardDto.Response postBoard = postBoardService.getPostBoard(id);
+        List<PostBoardDto.Response> categories = postBoardService.getCategories();
+        List<PostDto.Response> posts = postService.getPosts(id, page);
+
+        model.addAttribute("postBoard", postBoard);
+        model.addAttribute("categories", categories);
+        model.addAttribute("posts", posts);
+        model.addAttribute("current", page);
         return "postBoard";
     }
 
@@ -65,17 +70,13 @@ public class PostController {
 
     @GetMapping("/post/{id}")
     public String post(@PathVariable(name = "id") long id, Model model) {
-//        AdminDto.Response admin = adminService.getInfo(id);
-//        PostDto.Response post = postService.getPost(id);
-//        List<CommentDto.Response> comments = commentService.getComments(id);
-//        List<PostBoardDto.Response> categories = postBoardService.getCategories();
-//        PostBoardDto.Response postBoard = postBoardService.getPostBoard(post.getPostBoardId());
-//
-//        model.addAttribute("admin", admin);
-//        model.addAttribute("postBoard", postBoard);
-//        model.addAttribute("post", post);
-//        model.addAttribute("comments", comments);
-//        model.addAttribute("categories", categories);
+        PostDto.Response post = postService.getPost(id);
+        List<CommentDto.Response> comments = commentService.getComments(id);
+        List<PostBoardDto.Response> categories = postBoardService.getCategories();
+
+        model.addAttribute("post", post);
+        model.addAttribute("comments", comments);
+        model.addAttribute("categories", categories);
         return "postView";
     }
 

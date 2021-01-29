@@ -30,4 +30,15 @@ public class PostBoardRepository {
     public void remove(PostBoard postBoard) {
         em.remove(postBoard);
     }
+
+    public long countPostsById(long id) {
+        return em.createQuery("select count(p) from Post p where p.postBoard.id = :id", Long.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
+    public long countAll() {
+        return em.createQuery("select count(p) from Post p", Long.class)
+                .getSingleResult();
+    }
 }

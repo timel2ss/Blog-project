@@ -31,7 +31,7 @@ public class PostRepository {
 
     public List<Post> findAllOrderByDesc(int start) {
         return em.createQuery("select p from Post p order by p.id desc", Post.class)
-                .setFirstResult(start)
+                .setFirstResult(start * 5)
                 .setMaxResults(5)
                 .getResultList();
     }
@@ -39,4 +39,5 @@ public class PostRepository {
     public void remove(Post post) {
         em.remove(post);
     }
+
 }

@@ -17,20 +17,20 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class CommentService {
 
-    private final CommentRepository commentRepository;
+     final CommentRepository commentRepository;
     private final PostRepository postRepository;
 
     @Transactional
     public long createComment(CommentDto.Create create, String IP) {
         Post post = postRepository.findOne(create.getPostId());
         Comment comment = Comment.createComment(post, create.getNickname(), create.getPassword(), IP, create.getContent());
-//        commentRepository.save(comment);
         post.addComment(comment);
         return comment.getId();
     }
 
-    public List<CommentDto.Response> getComments(long id) {
-        List<Comment> comments = commentRepository.findAll(id);
+    public List<CommentDto.Response> getComments(long postId) {
+        Post post = postRepository.findOne(postId);
+        List<Comment> comments = commentRepository.findAll(postId);
         List<CommentDto.Response> responses = new LinkedList<>();
 
         for (Comment comment : comments) {

@@ -33,7 +33,7 @@ public class PostService {
 
     public PostDto.Response getPost(long id) {
         Post post = postRepository.findOne(id);
-        return new PostDto.Response(post.getId(), post.getPostBoard().getId(), post.getTitle(), post.getDescription(), post.getContent(), post.getCreateDate());
+        return new PostDto.Response(post.getId(), post.getAdmin().getName(), post.getPostBoard().getName(), post.getTitle(), post.getDescription(), post.getContent(), post.getCreateDate());
     }
 
     public List<PostDto.Response> getPosts(long boardId, int start) {
@@ -41,18 +41,18 @@ public class PostService {
         List<PostDto.Response> result = new LinkedList<>();
 
         for (Post post : list) {
-            PostDto.Response response = new PostDto.Response(post.getId(), boardId, post.getTitle(), post.getDescription(), post.getContent(), post.getCreateDate());
+            PostDto.Response response = new PostDto.Response(post.getId(), post.getAdmin().getName(), post.getPostBoard().getName(), post.getTitle(), post.getDescription(), post.getContent(), post.getCreateDate());
             result.add(response);
         }
         return result;
     }
 
-    public List<PostDto.Response> getRecentPosts(int start) {
-        List<Post> list = postRepository.findAllOrderByDesc(start);
+    public List<PostDto.Response> getRecentPosts(int page) {
+        List<Post> list = postRepository.findAllOrderByDesc(page);
         List<PostDto.Response> result = new LinkedList<>();
 
         for (Post post : list) {
-            PostDto.Response response = new PostDto.Response(post.getId(), post.getPostBoard().getId(), post.getTitle(), post.getDescription(), post.getContent(), post.getCreateDate());
+            PostDto.Response response = new PostDto.Response(post.getId(), post.getAdmin().getName(), post.getPostBoard().getName(), post.getTitle(), post.getDescription(), post.getContent(), post.getCreateDate());
             result.add(response);
         }
         return result;

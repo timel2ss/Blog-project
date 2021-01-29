@@ -19,5 +19,6 @@ public class PostBoardDto {
         private final long id;
         private final String name;
         private final String description;
+        private final long count;
     }
 }

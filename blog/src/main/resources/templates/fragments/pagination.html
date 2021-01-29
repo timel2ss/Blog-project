@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <div th:fragment="pagination">
-        <div class="col-md-9 mx-auto paging">
-            <ul class="pagination-pointed pagination text-center" aria-label="Pagination">
-                <li class="pagination-previous disabled">Previous <span class="show-for-sr">page</span></li>
-                <li class="current"><span class="show-for-sr">You're on page</span> 1</li>
-                <li><a class="pagination-pointed-button" href="#" aria-label="Page 2">2</a></li>
-                <li><a class="pagination-pointed-button" href="#" aria-label="Page 3">3</a></li>
-                <li><a class="pagination-pointed-button" href="#" aria-label="Page 4">4</a></li>
-                <li class="ellipsis" aria-hidden="true"></li>
-                <li><a class="pagination-pointed-button" href="#" aria-label="Page 12">12</a></li>
-                <li><a class="pagination-pointed-button" href="#" aria-label="Page 13">13</a></li>
-                <li class="pagination-next"><a class="pagination-pointed-button" href="#" aria-label="Next page">Next <span class="show-for-sr">page</span></a></li>
-            </ul>
+    <div th:fragment="pagination(count, current, path)" th:with="first = 0, last = ${T(Math).round((T(Math).ceil(count / 5.0))) - 1}">
+        <div class="col-md-9 mx-auto" style="width: 500px;">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#" th:href="@{${path}(page = ${first})}">First</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" th:if="${current} ge 5" th:href="@{${path}(page = ${current - (current % 5) - 1})}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    <div th:if="${last} - ${current - (current % 5)} ge 5" th:each="i : ${#numbers.sequence(current - (current % 5), current - (current % 5) + 4)}">
+                        <li class="page-item" th:classappend="${i == current} ? active"><a class="page-link" href="#" th:if="${current} le ${last}" th:href="@{${path}(page = ${i})}" th:text="${i+1}">1</a></li>
+                    </div>
+
+                    <div th:unless="${last} - ${current - (current % 5)} ge 5" th:each="i : ${#numbers.sequence(current - (current % 5), last)}">
+                        <li class="page-item" th:classappend="${i == current} ? active"><a class="page-link" href="#" th:if="${current} le ${last}" th:href="@{${path}(page = ${i})}" th:text="${i+1}">1</a></li>
+                    </div>
+
+                    <li class="page-item">
+                        <a class="page-link" href="#" th:if="${last} ge ${current - (current % 5) + 5}" th:href="@{${path}(page = ${current - (current % 5) + 5})}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#" th:href="@{${path}(page = ${last})}">Last</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 </html>
